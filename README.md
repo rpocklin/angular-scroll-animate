@@ -1,16 +1,12 @@
 # Angular Scroll Animate
 
-An Angular.js directive which allows you to perform any javascript actions (in the controller, or on the element)
-when an element is scrolled into or out of, the users viewport, without requiring any other dependencies.
+An Angular.js directive which allows you to perform any javascript actions (in the controller, or on the element) when an element is scrolled into or out of, the users viewport, without requiring any other dependencies.
 
 # Motivation
 
-`ngAnimate` is great if you want animations based on showing or hiding elements based on some behaviour, but what
-if you want to trigger behaviour when an element is scrolled into, or out of the user's view?
+`ngAnimate` is great if you want animations based on showing or hiding elements based on some behaviour, but what if you want to trigger behaviour when an element is scrolled into, or out of the user's view?
 
-The goal of this directive is to be small and focused around behaviour that changes when scrolled in and out of view,
-without requiring jQuery.  You can add / remove CSS classes in the callbacks, or execute any arbitrary javascript
-you want, such as pre-loading of data or anything else.
+The goal of this directive is to be small and focused around behaviour that changes when scrolled in and out of view, without requiring jQuery.  You can add / remove CSS classes in the callbacks, or execute any arbitrary javascript you want, such as pre-loading of data, images or anything else.
 
 # Demo / Example
 
@@ -18,8 +14,8 @@ you want, such as pre-loading of data or anything else.
 
 
 # Inspiration
-[ngAnimate](https://docs.angularjs.org/api/ngAnimate)
-[angular-inview](https://github.com/thenikso/angular-inview)
+- [ngAnimate](https://docs.angularjs.org/api/ngAnimate)
+- [angular-inview](https://github.com/thenikso/angular-inview)
 
 ## Installation
 
@@ -48,7 +44,9 @@ you want, such as pre-loading of data or anything else.
 Example markup:
   ```html
     <!-- angular view -->
-    <div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" class="hidden car">
+    <div ng-repeat="car in cars"
+      when-visible="animateElementIn"
+      when-not-visible="animateElementOut" class="hidden car">
     ...
     </div>
   ```
@@ -59,12 +57,12 @@ Example markup:
 
     $scope.animateElementIn = function($el) {
     $el.removeClass('hidden');
-    $el.addClass('animated fadeInUp');
+    $el.addClass('animated fadeInUp'); // this example leverages animate.css classes
   };
 
   $scope.animateElementOut = function($el) {
     $el.addClass('hidden');
-    $el.removeClass('animated fadeInUp');
+    $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
   };
   ```
 
@@ -76,12 +74,10 @@ Example markup:
 - `when-not-visible($el)`: [optional] function (executed in the controller scope) which is called when the element is
    moved out of view via scrolling.
 
-- `delay-percent="0.50"`: [optional] decimal value which represents how much of the element should be in the users
-   viewport before triggering the bound callback.  `0.25` is set as a default, a lower value will make it more eager,
-   a higher value will make it lazier.
+- `delay-percent="0.50"`: [optional] decimal value which represents how much of the element should be in the users viewport before triggering the bound callback.  `0.25` is set as a default, a lower value will make it more eager, a higher value will make it lazier.
 
 -  To ensure fast CSS3 transition rules are used for animations, I recommend either [velocity.js](http://julian.com/research/velocity/) or
-  [animate.css](https://daneden.github.io/animate.css/) which come with many pre-built CSS animation classes.
+  [animate.css](https://daneden.github.io/animate.css/) which come with many pre-built and tested CSS animation classes.
 
 - Default event bindings are on `scroll` `resize` and `orientationchange` of the document this directive is loaded in.
 
@@ -109,11 +105,10 @@ Example markup:
 
 
 ## TODO
+- Get more feedback and feedback on different browsers (especially mobile / tablets).
 - Add debounce timing
 - Consider using events instead?
-- Add refresh triggers on `resize` and `orientationchange`
 - Add some tests
-- Get more feedback and feedback on different browsers (especially mobile / tablets).
 
 
 ## License

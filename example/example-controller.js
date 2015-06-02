@@ -5,13 +5,13 @@ var ExampleCtrl = function($rootScope, $document, $scope) {
 	$scope.animation = {};
 	$scope.animation.current = 'fadeInLeft';
 
-
 	// only required for dynamic animations
 	$scope.changeAnimation = function() {
 		var elements = document.getElementsByClassName('car');
 		var $els = angular.element(elements);
 
 		$els.removeClass('animated ' + $scope.animation.current);
+		$els.addClass('hidden');
 		$document[0].dispatchEvent(new CustomEvent('scroll'));
 	};
 
