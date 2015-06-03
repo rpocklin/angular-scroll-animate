@@ -7,6 +7,28 @@ angular.module('angular-scroll-animate', []);// Source: src/angular-scroll-anima
  *
  * @description
  * Allows method hooks into the detection of when an element is scrolled into or out of view.
+ *
+ * @example
+ * <example module="angular-scroll-animate">
+ *   <file name="index.html">
+ *     <div class="car" when-visible="animateIn" when-not-visible="animateOut">Broom</div>
+ *   </file>
+ *   <file name="controller.js">
+ *   angular.module('example', []).controller(function($scope) {
+ *
+ *     $scope.animateIn = function($el) {
+ *       $el.removeClass('hidden');
+ *       $el.addClass('animated fadeIn');
+ *     };
+ *
+ *     $scope.animateOut = function($el) {
+ *      $el.addClass('hidden');
+ *       $el.removeClassClass('animated fadeIn');
+ *     };
+ *   });
+ *
+ *   </file>
+ * </example>
  */
 angular.module('angular-scroll-animate', []).directive('whenVisible', ['$document', '$window',
  function($document, $window) {
