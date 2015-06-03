@@ -12,12 +12,22 @@
 		}
 
 		.car {
-			background-color: #6699ff;
-			border: 1px solid #778899;
+			/*background-color: #6699ff;*/
 			color: #eee;
+		}
+
+		.car-container {
+			border: 1px solid #999;
 			margin:10px;
 			padding: 12px;
 			border-radius: 5px;
+		}
+
+		.car-container:nth-child(odd) {
+			background-color: #add8e6;
+		}
+		.car-container:nth-child(even) {
+			background-color: #778899;
 		}
 
 		.car h3 {
@@ -105,9 +115,11 @@
 
 	<div class="spacer"></div>
 
-	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" class="hidden car">
-		<h3>{{car.name}}</h3>
-		<div>{{car.description}}</div>
+	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" class="hidden car-container">
+		<div class="car">
+			<h3>{{car.name}}</h3>
+			<div>{{car.description}}</div>
+		</div>
 	</div>
 
 	<div class="spacer"></div>
