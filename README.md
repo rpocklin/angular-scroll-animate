@@ -108,8 +108,8 @@ Example markup:
 
 ## History
 
-* 0.8.0 Initial release
 * 0.9.0 Fixed event unbinding when removing bound elements from the DOM.
+* 0.8.0 Initial release
 
 
 ## TODO
