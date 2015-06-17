@@ -98,15 +98,18 @@ Example markup:
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+1. Create your feature branch (`git checkout -b my-new-feature`)
+1. Beautify (`grunt beautify`)
+1. Ensure it passes code-checks / tests (`grunt`)
+1. Commit your changes (`git commit -am 'Added some feature'`)
+1. Push to the branch (`git push origin my-new-feature`)
+1. Create a new Pull Request
 
 
 ## History
 
 * 0.8.0 Initial release
+* 0.9.0 Fixed event unbinding when removing bound elements from the DOM.
 
 
 ## TODO
