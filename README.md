@@ -108,6 +108,7 @@ Example markup:
 
 ## History
 
+* 0.9.2 Fixed error when not defining `when-not-visible` attributes and updated NG Docs (see [#1](/../../issues/1)).
 * 0.9.1 Removed (incorrectly) namespaced events, not supported in JQ-Lite.
 * 0.9.0 Fixed event unbinding when removing bound elements from the DOM.
 * 0.8.0 Initial release

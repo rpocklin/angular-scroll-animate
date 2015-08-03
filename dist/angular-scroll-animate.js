@@ -4,6 +4,8 @@ angular.module('angular-scroll-animate', []);// Source: src/angular-scroll-anima
  * @ngdoc directive
  * @name angular-scroll-animate.directive:when-visible
  * @restrict A
+ * @param {string} when-not-visible function to execute when element is scrolled into viewport
+ * @param {string=} when-not-visible function to execute when element is scrolled out of viewport
  *
  * @description
  * Allows method hooks into the detection of when an element is scrolled into or out of view.
@@ -78,6 +80,9 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 
         if (scope.whenNotVisible && !angular.isFunction(scope.whenNotVisible())) {
           throw new Error('Directive: angular-scroll-animate \'when-not-visible\' attribute must specify a function.');
+        }
+        else if (!scope.whenNotVisible) {
+          scope.whenNotVisible = angular.noop;
         }
 
         if (scope.delayPercent) {
