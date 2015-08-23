@@ -89,7 +89,7 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 
           var delayPercent = parseFloat(scope.delayPercent);
 
-          if ((Number.isNaN(delayPercent)) || (delayPercent < 0 || delayPercent > 1)) {
+          if (!angular.isNumber(delayPercent) || (delayPercent < 0 || delayPercent > 1)) {
             throw new Error('Directive: angular-scroll-animate \'delay-percent\' attribute must be a decimal fraction between 0 and 1.');
           }
         }
