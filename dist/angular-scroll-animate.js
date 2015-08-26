@@ -13,7 +13,9 @@ angular.module('angular-scroll-animate', []);// Source: src/angular-scroll-anima
  * @example
  * <example module="angular-scroll-animate">
  *   <file name="index.html">
- *     <div ng-controller="ExampleCtrl" class="car" when-visible="animateIn" when-not-visible="animateOut">Broom</div>
+ *     <div ng-controller="ExampleCtrl">
+ *       <div class="car" when-visible="animateIn" when-not-visible="animateOut">Broom</div>
+ *     </div>
  *   </file>
  *   <file name="controller.js">
  *   angular.module('example', []).controller('ExampleCtrl', function($scope) {
@@ -82,7 +84,9 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
           throw new Error('Directive: angular-scroll-animate \'when-not-visible\' attribute must specify a function.');
         }
         else if (!scope.whenNotVisible) {
-          scope.whenNotVisible = angular.noop;
+          scope.whenNotVisible = function() {
+            return angular.noop;
+          };
         }
 
         if (scope.delayPercent) {
