@@ -39,33 +39,33 @@ angular.module('angular-scroll-animate', []);// Source: src/angular-scroll-anima
  * </example>
  */
 angular.module('angular-scroll-animate', []).directive('whenVisible', ['$document', '$window',
- function($document, $window) {
+  function($document, $window) {
 
     var determineWhereElementIsInViewport =
-      function($el, viewportHeight, whenVisibleFn, whenNotVisibleFn, delayPercent, scope) {
+        function($el, viewportHeight, whenVisibleFn, whenNotVisibleFn, delayPercent, scope) {
 
-        var elementBounds = $el[0].getBoundingClientRect();
+          var elementBounds = $el[0].getBoundingClientRect();
 
-        var panelTop = elementBounds.top;
-        var panelBottom = elementBounds.bottom;
+          var panelTop = elementBounds.top;
+          var panelBottom = elementBounds.bottom;
 
-        // pixel buffer until deciding to show the element
-        var delayPx = delayPercent * elementBounds.height;
+          // pixel buffer until deciding to show the element
+          var delayPx = delayPercent * elementBounds.height;
 
-        var bottomVisible = (panelBottom - delayPx > 0) && (panelBottom < viewportHeight);
-        var topVisible = (panelTop + delayPx <= viewportHeight) && (panelTop > 0);
+          var bottomVisible = (panelBottom - delayPx > 0) && (panelBottom < viewportHeight);
+          var topVisible = (panelTop + delayPx <= viewportHeight) && (panelTop > 0);
 
-        if ($el.data('hidden') && bottomVisible || topVisible) {
-          whenVisibleFn($el, scope);
-          $el.data('hidden', false);
-        }
+          if ($el.data('hidden') && bottomVisible || topVisible) {
+            whenVisibleFn($el, scope);
+            $el.data('hidden', false);
+          }
 
-        // scrolled out from scrolling down or up
-        else if (!($el.data('hidden')) && (panelBottom < 0 || panelTop > viewportHeight)) {
-          whenNotVisibleFn($el, scope);
-          $el.data('hidden', true);
-        }
-      };
+          // scrolled out from scrolling down or up
+          else if (!($el.data('hidden')) && (panelBottom < 0 || panelTop > viewportHeight)) {
+            whenNotVisibleFn($el, scope);
+            $el.data('hidden', true);
+          }
+        };
 
     return {
       restrict: 'A',
@@ -97,7 +97,7 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
             throw new Error('Directive: angular-scroll-animate \'delay-percent\' attribute must be a decimal fraction between 0 and 1.');
           }
         }
-    }],
+      }],
 
       link: function(scope, el, attributes) {
 
@@ -109,7 +109,7 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
           var viewportHeight = document.clientHeight;
 
           determineWhereElementIsInViewport(el, viewportHeight,
-            scope.whenVisible(), scope.whenNotVisible(), delayPercent, scope);
+              scope.whenVisible(), scope.whenNotVisible(), delayPercent, scope);
         };
 
         var documentListenerEvents = 'scroll';
@@ -132,4 +132,4 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
         scope.$evalAsync(onScroll);
       }
     };
- }]);
+  }]);
