@@ -20,7 +20,7 @@
     "viewport",
     "lazy"
   ],
-  "version": "0.9.7",
+  "version": "0.9.8",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.3.15"
