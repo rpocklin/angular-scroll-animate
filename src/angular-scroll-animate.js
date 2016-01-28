@@ -6,6 +6,8 @@
  * @restrict A
  * @param {string} when-not-visible function to execute when element is scrolled into viewport
  * @param {string=} when-not-visible function to execute when element is scrolled out of viewport
+ * @param {delayPercent=} percentage (of px) to delay animate when visible transition.
+ * @param {bindScrollTo=} override default scroll event binding to another parent container.
  *
  * @description
  * Allows method hooks into the detection of when an element is scrolled into or out of view.
@@ -72,7 +74,8 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
       scope: {
         whenVisible: '&',
         whenNotVisible: '&?',
-        delayPercent: '=?'
+        delayPercent: '=?',
+        bindScrollTo: '@?'
       },
 
       controller: ['$scope', function(scope) {
@@ -102,17 +105,34 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
       link: function(scope, el, attributes) {
 
         var delayPercent = attributes.delayPercent || 0.25; // lower = more eager to hide / show, higher = less eager
+        var document = $document[0].documentElement;
+        var checkPending = false;
+
+        var updateVisibility = function() {
+          determineWhereElementIsInViewport(el, document.clientHeight /* viewportHeight */ ,
+            scope.whenVisible(), scope.whenNotVisible(), delayPercent, scope);
+
+          checkPending = false;
+        };
 
         var onScroll = function() {
 
-          var document = $document[0].documentElement;
-          var viewportHeight = document.clientHeight;
+          if (!checkPending) {
+            checkPending = true;
 
-          determineWhereElementIsInViewport(el, viewportHeight,
-            scope.whenVisible(), scope.whenNotVisible(), delayPercent, scope);
+            /* globals requestAnimationFrame */
+            requestAnimationFrame(updateVisibility);
+          }
         };
 
         var documentListenerEvents = 'scroll';
+
+        /* allows overflow:auto on container element to animate for Safari browsers */
+        if (attributes.bindScrollTo) {
+          angular.element($document[0].querySelector(attributes.bindScrollTo)).on(documentListenerEvents, onScroll);
+        }
+
+        /* always bind to document scroll as well - works for overflow: auto on Chrome, Firefox browsers */
         $document.on(documentListenerEvents, onScroll);
 
         scope.$on('$destroy', function() {

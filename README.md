@@ -81,10 +81,13 @@ Example markup:
 
 - `delay-percent="0.50"`: [optional] decimal value which represents how much of the element should be in the users viewport before triggering the bound callback.  `0.25` is set as a default, a lower value will make it more eager, a higher value will make it lazier.
 
+- `bind-scroll-to=".classname"`: [optional] If you are using `overflow: auto` in a container and the elements are not appearing when they should set  replace `classname` with the class you have applied `overflow: auto` to.
+
 -  To ensure fast CSS3 transition rules are used for animations, I recommend either [velocity.js](http://julian.com/research/velocity/) or
   [animate.css](https://daneden.github.io/animate.css/) which come with many pre-built and tested CSS animation classes.
 
-- Default event bindings are on `scroll` `resize` and `orientationchange` of the document this directive is loaded in.
+- Default event bindings are on `scroll` `resize` and `orientationchange` of the `document` element this directive is loaded in.
+
 
 ## Running Locally
 
@@ -108,6 +111,8 @@ Example markup:
 
 ## History
 
+* 0.9.8 Added override attribute of `bind-scroll-to` to bind scroll events to custom parents - see [#3](/../../issues/3)).
+* 0.9.8 Optimised reflow / repaints to use `requestAnimationFrame` for performance reasons.
 * 0.9.4 Re-fixed `when-not-visible` so it is truely optional (thanks @jagged3dge)
 * 0.9.3 Changed `Number.isNaN` to use `!angular.isNumber` instead (original function not available in all browsers yet) (see [#2](/../../issues/2)).
 * 0.9.2 Fixed error when not defining `when-not-visible` attributes and updated NG Docs (see [#1](/../../issues/1)).

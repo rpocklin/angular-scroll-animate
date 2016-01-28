@@ -10,7 +10,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "angular-scroll-animate",
       "shortDescription": "Allows method hooks into the detection of when an element is scrolled into or out of view.",
-      "keywords": "$el $scope addclass allows angular angular-scroll-animate animatein animateout animations api car class controller css detection directive ease-in element example examplectrl execute fadein function hidden hooks html js method module ng-controller removeclass removeclassclass scrolled transition view viewport visibility when-not-visible when-visible"
+      "keywords": "$el $scope addclass allows angular angular-scroll-animate animate animatein animateout animations api binding car class container controller css default delay detection directive ease-in element event example examplectrl execute fadein function hidden hooks html js method module ng-controller override parent percentage px removeclass removeclassclass scroll scrolled transition view viewport visibility visible when-not-visible when-visible"
     }
   ],
   "apis": {

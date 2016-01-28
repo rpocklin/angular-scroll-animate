@@ -5,8 +5,9 @@
   "author": "Robert Pocklington <rpocklin@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "http://github.com/npm/npm.git"
+    "url": "http://github.com/rpocklin/angular-scroll-animate.git"
   },
+  "main": ["src/angular-scroll-animate.js"],
   "keywords": [
     "angular",
     "directive",
@@ -17,7 +18,7 @@
     "viewport",
     "lazy"
   ],
-  "version": "0.8.0",
+  "version": "0.9.8",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.3.15"
