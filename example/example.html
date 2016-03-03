@@ -115,6 +115,7 @@
 
 	<div class="spacer"></div>
 
+<h2>Default delay</h2>
 	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" class="hidden car-container">
 		<div class="car">
 			<h3>{{car.name}}</h3>
@@ -123,4 +124,50 @@
 	</div>
 
 	<div class="spacer"></div>
+
+	<h2>100% (of element) delay</h2>
+	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" delay-percent="1.0" class="hidden car-container">
+		<div class="car">
+			<h3>{{car.name}}</h3>
+			<div>{{car.description}}</div>
+		</div>
+	</div>
+
+	<div class="spacer"></div>
+
+
+	<h2>20px delay</h2>
+	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" delay-pixels="20" class="hidden car-container">
+		<div class="car">
+			<h3>{{car.name}}</h3>
+			<div>{{car.description}}</div>
+		</div>
+	</div>
+
+	<div class="spacer"></div>
+
+
+	<h2>50% of viewport delay</h2>
+	<p>If full element is visible it will always animate in - try a small browser window!</p>
+	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" delay-percent-viewport="0.5" class="hidden car-container">
+		<div class="car">
+			<h3>{{car.name}}</h3>
+			<div>{{car.description}}</div>
+		</div>
+	</div>
+
+	<div class="spacer"></div>
+
+
+	<h2>Combination delay (50px, 25% of element and 10% of viewport)</h2>
+	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" delay-pixels="50" delay-percent="0.25" delay-percent-viewport="0.1" class="hidden car-container">
+		<div class="car">
+			<h3>{{car.name}}</h3>
+			<div>{{car.description}}</div>
+		</div>
+	</div>
+
+	<div class="spacer"></div>
+
+
 </div>

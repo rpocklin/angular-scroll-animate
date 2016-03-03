@@ -6,8 +6,10 @@
  * @restrict A
  * @param {string} when-not-visible function to execute when element is scrolled into viewport
  * @param {string=} when-not-visible function to execute when element is scrolled out of viewport
- * @param {delayPercent=} percentage (of px) to delay animate when visible transition.
- * @param {bindScrollTo=} override default scroll event binding to another parent container.
+ * @param {number=} delayPercent percentage (of px) to delay animate when visible transition.
+ * @param {number=} delayPercentViewport percentage (of viewport height) to delay animate when visible transition.
+ * @param {number=} delayPixels to delay animate when visible transition.
+ * @param {string=} bindScrollTo override default scroll event binding to another parent container.
  *
  * @description
  * Allows method hooks into the detection of when an element is scrolled into or out of view.
@@ -16,7 +18,8 @@
  * <example module="angular-scroll-animate">
  *   <file name="index.html">
  *     <div ng-controller="ExampleCtrl">
- *       <div class="car" when-visible="animateIn" when-not-visible="animateOut">Broom</div>
+ *       <div class="car" when-visible="animateIn">Broom with simplest config</div>
+ *       <div class="car" when-visible="animateIn" when-not-visible="animateOut" delay-pixels="50" delay-percent="0.25" delay-percent-viewport="0.1">Broom with all options</div>
  *     </div>
  *   </file>
  *   <file name="controller.js">
@@ -44,20 +47,37 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
  function($document, $window) {
 
     var determineWhereElementIsInViewport =
-      function($el, viewportHeight, whenVisibleFn, whenNotVisibleFn, delayPercent, scope) {
+      function($el, document, whenVisibleFn, whenNotVisibleFn, delayPercent, delayPercentViewport, delayPixels, scope) {
 
         var elementBounds = $el[0].getBoundingClientRect();
+        var viewportHeight = document.clientHeight;
 
         var panelTop = elementBounds.top;
         var panelBottom = elementBounds.bottom;
 
-        // pixel buffer until deciding to show the element
-        var delayPx = delayPercent * elementBounds.height;
+        var delayPx; // pixel buffer until deciding to show the element
+        var delayPxValues = [];
+        if (delayPixels) {
+          delayPxValues.push(delayPixels);
+        }
+        if (delayPercentViewport) {
+          delayPxValues.push(delayPercentViewport * $window.innerHeight);
+        }
+        if (delayPercent) {
+          delayPxValues.push(delayPercent * elementBounds.height);
+        }
+
+        if (delayPxValues.length === 0) {
+          delayPx = 0.25 * elementBounds.height;
+        }
+        else {
+          delayPx = Math.min.apply(Math, delayPxValues); //Show element as soon as any delay has been fulfilled
+        }
 
         var bottomVisible = (panelBottom - delayPx > 0) && (panelBottom < viewportHeight);
         var topVisible = (panelTop + delayPx <= viewportHeight) && (panelTop > 0);
 
-        if ($el.data('hidden') && bottomVisible || topVisible) {
+        if ($el.data('hidden') && (bottomVisible || topVisible)) {
           whenVisibleFn($el, scope);
           $el.data('hidden', false);
         }
@@ -75,6 +95,8 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
         whenVisible: '&',
         whenNotVisible: '&?',
         delayPercent: '=?',
+        delayPercentViewport: '=?',
+        delayPixels: '=?',
         bindScrollTo: '@?'
       },
 
@@ -104,13 +126,14 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 
       link: function(scope, el, attributes) {
 
-        var delayPercent = attributes.delayPercent || 0.25; // lower = more eager to hide / show, higher = less eager
+        var delayPercent = attributes.delayPercent; //Fallback is be 0.25% delayPercent if no delay is specified, set in determineWhereElementIsInViewport function
+        var delayPercentViewport = attributes.delayPercentViewport;
+        var delayPixels = attributes.delayPixels;
         var document = $document[0].documentElement;
         var checkPending = false;
 
         var updateVisibility = function() {
-          determineWhereElementIsInViewport(el, document.clientHeight /* viewportHeight */ ,
-            scope.whenVisible(), scope.whenNotVisible(), delayPercent, scope);
+          determineWhereElementIsInViewport(el, document, scope.whenVisible(), scope.whenNotVisible(), delayPercent, delayPercentViewport, delayPixels, scope);
 
           checkPending = false;
         };

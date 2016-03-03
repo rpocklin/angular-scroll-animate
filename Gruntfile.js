@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
     watch: {
            scripts: {
-                    files: ['src/**/*'],
+                    files: ['src/**/*', 'example/**/*'],
                     tasks: ['beautify', 'build'],
                     options: {
                              spawn: false
