@@ -57,7 +57,7 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
         var bottomVisible = (panelBottom - delayPx > 0) && (panelBottom < viewportHeight);
         var topVisible = (panelTop + delayPx <= viewportHeight) && (panelTop > 0);
 
-        if ($el.data('hidden') && bottomVisible || topVisible) {
+        if ($el.data('hidden') && (bottomVisible || topVisible)) {
           whenVisibleFn($el, scope);
           $el.data('hidden', false);
         }
