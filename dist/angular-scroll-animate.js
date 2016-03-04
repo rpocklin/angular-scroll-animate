@@ -44,18 +44,21 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
  function($document, $window) {
 
     var determineWhereElementIsInViewport =
-      function($el, viewportHeight, whenVisibleFn, whenNotVisibleFn, delayPercent, scope) {
+      function($el, whenVisibleFn, whenNotVisibleFn, delayPercent, scope, $scrollBindTo) {
+        var document = $document[0].documentElement;
 
         var elementBounds = $el[0].getBoundingClientRect();
+        var scrollContainerBounds = $scrollBindTo ? $scrollBindTo[0].getBoundingClientRect() : null;
 
-        var panelTop = elementBounds.top;
-        var panelBottom = elementBounds.bottom;
+        var scrollContainerHeight = $scrollBindTo ? scrollContainerBounds.height : document.clientHeight;
+        var panelTop = $scrollBindTo ? elementBounds.top - scrollContainerBounds.top : elementBounds.top;
+        var panelBottom = $scrollBindTo ? elementBounds.bottom - scrollContainerBounds.top : elementBounds.bottom;
 
         // pixel buffer until deciding to show the element
         var delayPx = delayPercent * elementBounds.height;
 
-        var bottomVisible = (panelBottom - delayPx > 0) && (panelBottom < viewportHeight);
-        var topVisible = (panelTop + delayPx <= viewportHeight) && (panelTop > 0);
+        var bottomVisible = (panelBottom - delayPx > 0) && (panelBottom < scrollContainerHeight);
+        var topVisible = (panelTop + delayPx <= scrollContainerHeight) && (panelTop > 0);
 
         if ($el.data('hidden') && bottomVisible || topVisible) {
           whenVisibleFn($el, scope);
@@ -63,7 +66,7 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
         }
 
         // scrolled out from scrolling down or up
-        else if (!($el.data('hidden')) && (panelBottom < 0 || panelTop > viewportHeight)) {
+        else if (!($el.data('hidden')) && (panelBottom < 0 || panelTop > scrollContainerHeight)) {
           whenNotVisibleFn($el, scope);
           $el.data('hidden', true);
         }
@@ -103,14 +106,13 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
     }],
 
       link: function(scope, el, attributes) {
-
+        var $scrollBindTo;
         var delayPercent = attributes.delayPercent || 0.25; // lower = more eager to hide / show, higher = less eager
-        var document = $document[0].documentElement;
         var checkPending = false;
 
         var updateVisibility = function() {
-          determineWhereElementIsInViewport(el, document.clientHeight /* viewportHeight */ ,
-            scope.whenVisible(), scope.whenNotVisible(), delayPercent, scope);
+          determineWhereElementIsInViewport(el, scope.whenVisible(),
+            scope.whenNotVisible(), delayPercent, scope, $scrollBindTo);
 
           checkPending = false;
         };
@@ -129,7 +131,8 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 
         /* allows overflow:auto on container element to animate for Safari browsers */
         if (attributes.bindScrollTo) {
-          angular.element($document[0].querySelector(attributes.bindScrollTo)).on(documentListenerEvents, onScroll);
+          $scrollBindTo = angular.element($document[0].querySelector(attributes.bindScrollTo));
+          $scrollBindTo.on(documentListenerEvents, onScroll);
         }
 
         /* always bind to document scroll as well - works for overflow: auto on Chrome, Firefox browsers */
