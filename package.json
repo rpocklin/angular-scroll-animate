@@ -7,9 +7,7 @@
     "type": "git",
     "url": "http://github.com/rpocklin/angular-scroll-animate.git"
   },
-  "main": [
-    "src/angular-scroll-animate.js"
-  ],
+  "main": ["src/angular-scroll-animate.js"],
   "keywords": [
     "angular",
     "directive",

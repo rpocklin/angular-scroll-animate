@@ -1,4 +1,4 @@
-<a href="https://github.com/rpocklin/angular-scroll-animate.git/edit/master/dist/angular-scroll-animate.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/rpocklin/angular-scroll-animate.git/blob/fb82569/dist/angular-scroll-animate.js#L43" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">when-visible</code>
+<a href="https://github.com/rpocklin/angular-scroll-animate/edit/master/dist/angular-scroll-animate.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/rpocklin/angular-scroll-animate/blob/c8e1d3c/dist/angular-scroll-animate.js#L46" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">when-visible</code>
 <div><span class="hint">directive in module <code ng:non-bindable="">angular-scroll-animate</code>
 </span>
 </div>
@@ -10,14 +10,18 @@
 <div class="usage">as attribute<pre class="prettyprint linenums">&lt;ANY when-visible
      when-not-visible="{string}"
      [when-not-visible="{string}"]
-     [percentage="{delayPercent}"]
-     [override="{bindScrollTo}"]&gt;
+     [delay-percent="{number}"]
+     [delay-percent-viewport="{number}"]
+     [delay-pixels="{number}"]
+     [bind-scroll-to="{string}"]&gt;
    ...
 &lt;/ANY&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>when-not-visible</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><p>function to execute when element is scrolled into viewport</p>
 </div></td></tr><tr><td>when-not-visible <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><p>function to execute when element is scrolled out of viewport</p>
-</div></td></tr><tr><td>percentage <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-delaypercent">delayPercent</a></td><td><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><p>(of px) to delay animate when visible transition.</p>
-</div></td></tr><tr><td>override <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-bindscrollto">bindScrollTo</a></td><td><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><p>default scroll event binding to another parent container.</p>
+</div></td></tr><tr><td>delayPercent <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><p>percentage (of px) to delay animate when visible transition.</p>
+</div></td></tr><tr><td>delayPercentViewport <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><p>percentage (of viewport height) to delay animate when visible transition.</p>
+</div></td></tr><tr><td>delayPixels <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><p>to delay animate when visible transition.</p>
+</div></td></tr><tr><td>bindScrollTo <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><p>override default scroll event binding to another parent container.</p>
 </div></td></tr></tbody></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="angular-scroll-animate-directive-page angular-scroll-animate-directive-when-visible-page"><h4 id="example_source">Source</h4>
@@ -26,7 +30,8 @@
 <pre class="prettyprint linenums" ng-set-text="index.html" ng-html-wrap-loaded="angular-scroll-animate angular.js controller.js"></pre>
 <script type="text/ng-template" id="index.html">
   <div ng-controller="ExampleCtrl">
-    <div class="car" when-visible="animateIn" when-not-visible="animateOut">Broom</div>
+    <div class="car" when-visible="animateIn">Broom with simplest config</div>
+    <div class="car" when-visible="animateIn" when-not-visible="animateOut" delay-pixels="50" delay-percent="0.25" delay-percent-viewport="0.1">Broom with all options</div>
   </div>
 </script>
 </div>
