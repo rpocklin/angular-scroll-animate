@@ -1,6 +1,5 @@
 {
   "name": "angular-scroll-animate",
-  "version": "0.8.0",
   "license": "MIT",
   "main": [
     "dist/angular-scroll-animate.js"
