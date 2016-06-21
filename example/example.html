@@ -3,7 +3,7 @@
 	<h1>Angular Scroll Animate</h1>
 
 	<style>
-		.hidden {
+		.not-visible {
 			visibility: hidden;
 	  }
 
@@ -115,7 +115,7 @@
 
 	<div class="spacer"></div>
 
-	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" class="hidden car-container">
+	<div ng-repeat="car in cars" when-visible="animateElementIn" when-not-visible="animateElementOut" class="not-visible car-container">
 		<div class="car">
 			<h3>{{car.name}}</h3>
 			<div>{{car.description}}</div>

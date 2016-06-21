@@ -13,7 +13,7 @@ var ExampleCtrl = function($rootScope, $document, $scope) {
 		var $elements = angular.element(elements);
 
 		$elements.removeClass('animated ' + $scope.animation.previous);
-		$elements.addClass('hidden');
+		$elements.addClass('not-visible');
 
 		$scope.animation.previous = $scope.animation.current;
 		$document[0].dispatchEvent(new CustomEvent('scroll'));
@@ -47,12 +47,12 @@ var ExampleCtrl = function($rootScope, $document, $scope) {
 	];
 
 	$scope.animateElementIn = function($el) {
-		$el.removeClass('hidden');
+		$el.removeClass('not-visible');
 		$el.addClass('animated ' + $scope.animation.current);
 	};
 
 	$scope.animateElementOut = function($el) {
-		$el.addClass('hidden');
+		$el.addClass('not-visible');
 		$el.removeClass('animated ' + $scope.animation.current);
 	};
 };
